@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Hub | Unblocked Games & Proxy</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #3b82f6;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* Responsive Header */
+        header {
+            background-color: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .header-tools {
+            display: flex;
+            gap: 0.5rem;
+            flex-grow: 1;
+            max-width: 900px;
+        }
+
+        .input-group {
+            position: relative;
+            flex-grow: 1;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: white;
+            outline: none;
+            transition: border-color 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .input-group input:focus {
+            border-color: var(--accent);
+        }
+
+        .proxy-btn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 0 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        .proxy-btn:hover { opacity: 0.9; }
+
+        /* Content Sections */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        h2 {
+            margin: 2.5rem 0 1.2rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid var(--accent);
+            padding-left: 15px;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Game Card Design */
+        .game-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+            border-color: var(--accent);
+        }
+
+        .thumbnail {
+            width: 100%;
+            aspect-ratio: 16/10;
+            background: linear-gradient(45deg, #1e293b, #334155);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            user-select: none;
+        }
+
+        .game-info {
+            padding: 1.25rem;
+        }
+
+        .game-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-category {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge {
+            font-size: 0.65rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid currentColor;
+        }
+
+        .pc-badge { color: var(--warning); }
+
+        /* Fullscreen Overlay Viewer */
+        #gameOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+        }
+
+        .game-controls {
+            background: #111827;
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            border-bottom: 1px solid #374151;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-left: auto;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-close { background: var(--danger); }
+
+        #gameIframe {
+            width: 100%;
+            flex-grow: 1;
+            border: none;
+            background: #000;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-dim);
+            grid-column: 1 / -1;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 1rem; }
+            .header-tools { width: 100%; }
+            .proxy-btn { padding: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">ArcadeHub</div>
+        <div class="header-tools">
+            <div class="input-group">
+                <input type="text" id="searchBar" placeholder="Search Games...">
+            </div>
+            <div class="input-group">
+                <input type="text" id="proxyInput" placeholder="Proxy URL (https://...)">
+            </div>
+            <button class="proxy-btn" onclick="launchProxy()">Go</button>
+        </div>
+    </header>
+
+    <div class="container" id="mainContent">
+        <!-- JS generates content here -->
+    </div>
+
+    <!-- Iframe Viewer Overlay -->
+    <div id="gameOverlay">
+        <div class="game-controls">
+            <div id="activeGameTitle" style="font-weight: 800; font-size: 1.1rem; color: var(--accent);">Game Name</div>
+            <div class="control-group">
+                <button class="btn" onclick="toggleFullscreen()">Fullscreen</button>
+                <button class="btn btn-close" onclick="closeGame()">Exit</button>
+            </div>
+        </div>
+        <iframe id="gameIframe" src="" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        // Database of Games
+        const games = [
+            // PC ONLY / SHOOTERS
+            { id: "eagler", title: "Eaglercraft (Minecraft)", category: "Survival", url: "https://eaglercraft.com/mc/1.8.8/", thumb: "⛏️", section: "Computer Only", isPC: true },
+            { id: "hw", title: "Happy Wheels", category: "Physics", url: "https://totaljerkface.com/happy_wheels.tjf", thumb: "♿", section: "Computer Only", isPC: true },
+            { id: "vng", title: "Venge.io", category: "Shooter", url: "https://venge.io/", thumb: "🔫", section: "Computer Only", isPC: true },
+            { id: "ss", title: "Shell Shockers", category: "FPS", url: "https://shellshock.io/", thumb: "🥚", section: "Computer Only", isPC: true },
+            { id: "kr", title: "Krunker", category: "FPS", url: "https://krunker.io/", thumb: "🎯", section: "Computer Only", isPC: true },
+            
+            // RACING
+            { id: "dh", title: "Drift Hunters", category: "Racing", url: "https://webglmath.github.io/drift-hunters/", thumb: "🏎️", section: "Racing & Cars", isPC: true },
+            { id: "msc2", title: "Madalin Stunt Cars 2", category: "Stunts", url: "https://madalin-stunt-cars-2.io/", thumb: "🚗", section: "Racing & Cars", isPC: true },
+            { id: "rr", title: "Retro Racing", category: "Arcade", url: "https://v6p9d9t4.ssl.hwcdn.net/html/1453272/index.html", thumb: "🏁", section: "Racing & Cars", isPC: false },
+            
+            // CLASSICS
+            { id: "cc", title: "Cookie Clicker", category: "Idle", url: "https://orteil.dashnet.org/cookieclicker/", thumb: "🍪", section: "Arcade Classics", isPC: false },
+            { id: "2048", title: "2048", category: "Puzzle", url: "https://play2048.co/", thumb: "🔢", section: "Arcade Classics", isPC: false },
+            { id: "snk", title: "Snake", category: "Retro", url: "https://www.google.com/logos/2010/pacman10-i.html", thumb: "🐍", section: "Arcade Classics", isPC: false },
+            { id: "tet", title: "Tetris", category: "Logic", url: "https://tetris.com/play-tetris", thumb: "🧱", section: "Arcade Classics", isPC: false }
+        ];
+
+        const mainContent = document.getElementById('mainContent');
+        const searchBar = document.getElementById('searchBar');
+        const proxyInput = document.getElementById('proxyInput');
+        const overlay = document.getElementById('gameOverlay');
+        const iframe = document.getElementById('gameIframe');
+        const activeTitle = document.getElementById('activeGameTitle');
+
+        // Render the UI
+        function renderGallery(searchTerm = "") {
+            mainContent.innerHTML = "";
+            const sections = [...new Set(games.map(g => g.section))];
+            let foundAny = false;
+
+            sections.forEach(sectionTitle => {
+                const sectionGames = games.filter(g => 
+                    g.section === sectionTitle && 
+                    (g.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                     g.category.toLowerCase().includes(searchTerm.toLowerCase()))
+                );
+
+                if (sectionGames.length > 0) {
+                    foundAny = true;
+                    const sectionWrapper = document.createElement('div');
+                    sectionWrapper.innerHTML = `<h2>${sectionTitle}</h2>`;
+                    
+                    const grid = document.createElement('div');
+                    grid.className = 'game-grid';
+
+                    sectionGames.forEach(game => {
+                        const card = document.createElement('div');
+                        card.className = 'game-card';
+                        card.onclick = () => openGame(game.url, game.title);
+                        card.innerHTML = `
+                            <div class="thumbnail">${game.thumb}</div>
+                            <div class="game-info">
+                                <div class="game-title">${game.title}</div>
+                                <div class="game-meta">
+                                    <span class="game-category">${game.category}</span>
+                                    ${game.isPC ? '<span class="badge pc-badge">PC</span>' : ''}
+                                </div>
+                            </div>
+                        `;
+                        grid.appendChild(card);
+                    });
+
+                    sectionWrapper.appendChild(grid);
+                    mainContent.appendChild(sectionWrapper);
+                }
+            });
+
+            if (!foundAny) {
+                mainContent.innerHTML = `<div class="no-results">No games match "${searchTerm}"</div>`;
+            }
+        }
+
+        // Logic to launch games or proxy URLs
+        function openGame(url, title) {
+            activeTitle.innerText = title;
+            iframe.src = url;
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeGame() {
+            overlay.style.display = 'none';
+            iframe.src = ""; // Stop the game audio/loading
+            document.body.style.overflow = 'auto';
+        }
+
+        function launchProxy() {
+            let target = proxyInput.value.trim();
+            if (!target) return;
+            if (!target.startsWith('http')) target = 'https://' + target;
+            openGame(target, "External Proxy View");
+        }
+
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                overlay.requestFullscreen().catch(err => {
+                    console.error("Fullscreen failed:", err);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Event Listeners
+        searchBar.addEventListener('input', (e) => renderGallery(e.target.value));
+        
+        proxyInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') launchProxy();
+        });
+
+        // Initial Load
+        window.onload = () => renderGallery();
+    </script>
+</body>
+  </html>
