@@ -1,1 +1,1 @@
-# My-Gameswizard
+# MYOB-games
